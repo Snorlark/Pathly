@@ -25,20 +25,21 @@
 npm install
 ```
 
-2. Run the development server:
+2. Run the development servers (both frontend and backend):
 ```bash
 npm run dev
 ```
 
-3. Open [http://localhost:3000](http://localhost:3000) in your browser
+3. Open [http://localhost:3000](http://localhost:3000) for the frontend frontend and [http://localhost:5000/api/v1/health](http://localhost:5000/api/v1/health) for the backend API.
 
 ### Available Scripts
 
 | Command | Description |
 |---------|-------------|
-| `npm run dev` | Start development server |
-| `npm run build` | Build for production |
-| `npm run start` | Start production server |
+| `npm run dev` | Start both development servers (web & api) |
+| `npm run dev --workspace=apps/web` | Start web development server |
+| `npm run dev --workspace=apps/api` | Start api development server |
+| `npm run build` | Build all projects |
 | `npm run lint` | Run ESLint |
 
 ---
@@ -46,31 +47,25 @@ npm run dev
 ## 📁 Project Structure
 
 ```
-src/
-├── app/                      # Next.js App Router
-│   ├── (pages)/              # Route groups for pages
-│   │   ├── dashboard/        # Dashboard pages (protected)
-│   │   ├── landing/          # Landing page
-│   │   └── login/            # Authentication pages
-│   ├── globals.css           # Global styles
-│   ├── layout.tsx            # Root layout
-│   └── page.tsx              # Root page (redirects to landing)
+apps/
+├── api/                      # Express.js Backend
+│   ├── src/
+│   │   ├── config/           # Environment config
+│   │   ├── controllers/      # Route controllers
+│   │   ├── middlewares/      # Express middlewares
+│   │   ├── models/           # Database models
+│   │   ├── routes/           # API routes
+│   │   └── services/         # Business logic
+│   └── package.json
 │
-├── components/
-│   ├── ui/                   # shadcn/ui base components
-│   │   ├── button.tsx
-│   │   ├── card.tsx
-│   │   ├── input.tsx
-│   │   └── label.tsx
-│   ├── features/             # Feature-specific components
-│   └── layouts/              # Layout components
-│       └── DashboardLayout.tsx
-│
-├── lib/
-│   └── utils.ts              # Utility functions (cn helper)
-│
-├── hooks/                    # Custom React hooks
-└── types/                    # TypeScript types/interfaces
+├── web/                      # Next.js Frontend
+│   ├── src/
+│   │   ├── app/              # Next.js App Router
+│   │   ├── components/       # React components
+│   │   ├── lib/              # Utility functions
+│   │   ├── hooks/            # Custom React hooks
+│   │   └── types/            # TypeScript types
+│   └── package.json
 ```
 
 ---
@@ -79,11 +74,11 @@ src/
 
 ### Where to Add New Code
 
-#### 1. **New Pages**
-Add new pages in `src/app/(pages)/`:
+#### 1. **New Pages (Web)**
+Add new pages in `apps/web/src/app/(pages)/`:
 
 ```
-src/app/(pages)/
+apps/web/src/app/(pages)/
 ├── new-feature/
 │   ├── page.tsx          # Main page component
 │   └── loading.tsx       # Optional loading state
@@ -135,12 +130,12 @@ export interface User {
 
 1. **Create the page:**
 ```
-src/app/(pages)/dashboard/settings/page.tsx
+apps/web/src/app/(pages)/dashboard/settings/page.tsx
 ```
 
 2. **Create any needed components:**
 ```
-src/components/features/SettingsForm.tsx
+apps/web/src/components/features/SettingsForm.tsx
 ```
 
 3. **Add navigation (if needed):**

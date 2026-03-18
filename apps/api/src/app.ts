@@ -1,0 +1,29 @@
+import express, { Express, Request, Response, NextFunction } from 'express';
+import cors from 'cors';
+import routes from './routes/v1';
+import { errorHandler } from './middlewares/error.middleware';
+
+const app: Express = express();
+
+// parse json request body
+app.use(express.json());
+
+// parse urlencoded request body
+app.use(express.urlencoded({ extended: true }));
+
+// enable cors
+app.use(cors());
+app.options('*', cors());
+
+// v1 api routes
+app.use('/api/v1', routes);
+
+// send back a 404 error for any unknown api request
+app.use((req: Request, res: Response, next: NextFunction) => {
+  res.status(404).json({ message: 'Not Found' });
+});
+
+// global error handler
+app.use(errorHandler);
+
+export default app;
