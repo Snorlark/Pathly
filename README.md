@@ -5,11 +5,15 @@ A modern web application built with Next.js 14, React, TypeScript, Tailwind CSS,
 ## 🚀 Quick Start
 
 ```bash
-# Install dependencies
+# Install dependencies for both apps
 npm install
 
-# Run development server
+# Run development servers for both apps
 npm run dev
+
+# Or run individually
+npm run dev --workspace=apps/web
+npm run dev --workspace=apps/api
 ```
 
 Open [http://localhost:3000](http://localhost:3000)
@@ -29,15 +33,22 @@ See [DEVELOPMENT.md](./DEVELOPMENT.md) for detailed development guidelines.
 ## 📁 Project Structure
 
 ```
-src/
-├── app/              # Next.js App Router pages
-├── components/       # React components
-│   ├── ui/          # Base UI components (shadcn)
-│   ├── features/    # Feature-specific components
-│   └── layouts/     # Layout components
-├── lib/             # Utilities
-├── hooks/           # Custom React hooks
-└── types/           # TypeScript types
+apps/
+├── api/             # Express.js API backend
+│   ├── src/
+│   │   ├── config/  # Environment config
+│   │   ├── controllers/ # Route controllers
+│   │   ├── middlewares/ # Express middlewares
+│   │   ├── models/  # Database models
+│   │   ├── routes/  # API routes
+│   │   └── services/# Business logic
+├── web/             # Next.js App Router frontend
+│   ├── src/
+│   │   ├── app/     # Pages & Routes
+│   │   ├── components/ # React components
+│   │   ├── lib/     # Utilities
+│   │   ├── hooks/   # Custom hooks
+│   │   └── types/   # TypeScript types
 ```
 
 ## 📄 Pages
